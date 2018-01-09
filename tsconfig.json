@@ -1,0 +1,15 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es2017",
+        "noEmitOnError": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true
+    },
+    "files": [
+        "src/index.ts"
+    ]
+}
