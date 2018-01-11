@@ -9,8 +9,13 @@
   },
   "keywords": [],
   "author": "Nathan Files",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nfiles/rate-limiter"
+  },
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.4",
     "rollup": "^0.53.3",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
@@ -19,6 +24,7 @@
     "typescript": "^2.6.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.92",
     "@types/node": "^8.5.7",
     "@types/rollup": "^0.51.4"
   }
