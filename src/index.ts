@@ -1,20 +1,25 @@
 import { RateLimiter } from './rate-limiter';
 
-const maxRequests = 5;
+const maxTimePeriodRequests = 5;
 const timePeriod = 1000;
-const rateLimiter = new RateLimiter(maxRequests, timePeriod);
+const maxConcurrentActions = 10;
+const rateLimiter = new RateLimiter(maxTimePeriodRequests, timePeriod, maxConcurrentActions);
 const actionTime = 100;
-const actionCount = 15;
+const actionCount = 30;
 
 const main = async () => {
     console.log('starting:');
 
-    const action = (i: number) => new Promise<number>(resolve => {
-        setTimeout(() => {
-            console.log(`finished ${i}`);
-            resolve(i);
-        }, Math.random() * 250 + 500)
-    });
+    // const action = (i: number) => new Promise<number>(resolve => {
+    //     setTimeout(() => {
+    //         console.log(`finished ${i}`);
+    //         resolve(i);
+    //     }, 500) // Math.random() * 250 + 500)
+    // });
+
+    const action = async (i: number) => {
+        console.log(`finished ${i}`);
+    }
 
     const actions = new Array(actionCount)
         .fill(0)
@@ -22,10 +27,10 @@ const main = async () => {
             rateLimiter.run(() => action(i))
         );
 
+    // console.log(
+    await Promise.all(actions)
+    // );
     console.log('done!');
-    console.log(
-        await Promise.all(actions)
-    );
 };
 
 main().catch(ex => {
