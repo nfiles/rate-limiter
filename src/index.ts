@@ -2,12 +2,14 @@ import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 
 import { RateLimiter } from './rate-limiter';
+import { BatchScheduler } from './batch-scheduler';
 
 const maxTimePeriodRequests = 5;
 const timePeriod = 1000;
 const maxConcurrentActions = 10;
 
-const rateLimiter = new RateLimiter(timePeriod, maxTimePeriodRequests, maxConcurrentActions);
+// const rateLimiter = new RateLimiter(timePeriod, maxTimePeriodRequests, maxConcurrentActions);
+const rateLimiter = new BatchScheduler(timePeriod, maxConcurrentActions);
 
 const actionTime = 100;
 const actionCount = 30;
@@ -39,6 +41,9 @@ const main = async () => {
         .forEach(seconds => {
             console.log(`${seconds} seconds: ${grouped[seconds].length}`);
         });
+
+    await rateLimiter.drain();
+    rateLimiter.stop();
 };
 
 main().catch(ex => {
